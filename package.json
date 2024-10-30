@@ -4,7 +4,10 @@
   "description": "webapp for displaying and printing megamek unit files for different systems (cbt, destiny, override)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "repository": {
     "type": "git",

@@ -1,4 +1,4 @@
-        import { Mech } from "../../common/mech";
+import { Mech } from "../../common/mech";
 
 interface RetObj {
     chassis: string,
@@ -205,6 +205,7 @@ export class MTFClass {
         deep.crits?.lt.shift();
         deep.crits?.rt.shift();
         deep.crits?.ct.shift();
+        deep.crits?.hd.shift();
         deep.crits?.ll.shift();
         deep.crits?.rl.shift();
 

@@ -26,8 +26,8 @@ describe('MTF Class tests', () => {
 
         it('should populate armaments and equipment correctly', () => {
             expect(actual.arms?.length).toBe(6);
-            expect(actual.arms[1][0]).toBe('Large Laser');
-            expect(actual.arms[1][1]).toBe('Right Arm');
+            expect(actual.arms[2][0]).toBe('Large Laser');
+            expect(actual.arms[2][1]).toBe('Right Arm');
         })
 
         it('should populate crits arrays correctly', () => {
