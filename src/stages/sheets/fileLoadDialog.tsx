@@ -1,46 +1,29 @@
-import {dialog} from 'electron';
-import {} from 'react-dom';
+import React from "react";
 
 type FileLoadProps = {
-    setFilePathsOut: (newType: string[]) => void;
-}
+  setFilePathsOut: (newType: File) => void;
+  isLoading: (Boolean) => void;
+};
 
-export function FileLoad(
-    {
-        setFilePathsOut
-    }: FileLoadProps
-){
-   
+export function FileLoad({ setFilePathsOut, isLoading }: FileLoadProps) {
+  let fileHandle;
 
-    const triggerFileDialog = async () => {
-        const pathPromise = await dialog.showOpenDialog(
-            {
-                buttonLabel: 'Open File',
-                filters: [
-                    {
-                        name: 'Mech Files',
-                        extensions: [
-                            'mtf', 
-                            'blk'
-                        ]
-                    }
-                ],
-                message: 'Open Existing Unit File',
-                properties: [
-                    'openFile',
-                    'treatPackageAsDirectory'
-                ]
-            }
-        );
+  const getFile = async () => {
+    [fileHandle] = await window.showOpenFilePicker();
+    const file = await fileHandle.getFile();
+    isLoading(true);
+    setFilePathsOut(file);
+  };
 
-        const paths = pathPromise.filePaths;
+  const triggerFileDialog = async () => {
+    await getFile();
+  };
 
-        setFilePathsOut(paths);
-    }
-
-    return (
-        <>
-            <button id="fileDialogBtn" onClick={triggerFileDialog}>Open CBT File</button>
-        </>
-    )
+  return (
+    <>
+      <button id="fileDialogBtn" onClick={triggerFileDialog}>
+        Open CBT File
+      </button>
+    </>
+  );
 }

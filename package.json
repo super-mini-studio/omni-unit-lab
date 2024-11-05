@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "NODE_ENV=test vitest --config vitest.confit.ts",
+    "test:browser": "vitest --workspace=vitest.workspace.ts"
   },
   "repository": {
     "type": "git",
@@ -26,19 +27,28 @@
   },
   "homepage": "https://github.com/johnnycricket/omni-unit-lab#readme",
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
     "@typescript-eslint/eslint-plugin": "^8.12.2",
     "@typescript-eslint/parser": "^8.12.2",
     "@vitejs/plugin-react": "^4.3.3",
+    "@vitest/browser": "^2.1.4",
     "cross-env": "^7.0.3",
     "eslint": "^9.13.0",
     "eslint-plugin-import": "^2.31.0",
+    "jsdom": "^25.0.1",
+    "jsdom-global": "^3.0.2",
+    "msw": "^2.6.0",
+    "playwright": "^1.48.2",
     "sass": "^1.80.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3",
     "vite": "^5.4.10",
     "vite-plugin-checker": "^0.8.0",
     "vite-tsconfig-paths": "^5.0.1",
-    "vitest": "^2.1.4"
+    "vitest": "^2.1.4",
+    "vitest-browser-react": "^0.0.3"
   },
   "dependencies": {
     "@types/react": "^18.3.12",

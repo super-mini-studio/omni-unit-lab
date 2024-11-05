@@ -1,0 +1,9 @@
+{
+    "vitest.commandLine": "npx vitest --config vitest.config.ts",
+    "vitest.enable": true,
+    "vitest.showFailMessages": true,
+    "vitest.nodeEnv": {
+        "NODE_ENV": "test"
+    },
+    "editor.formatOnSave": true,
+}

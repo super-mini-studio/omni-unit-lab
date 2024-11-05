@@ -3,7 +3,7 @@ import { HashRouter, Routes, Route } from 'react-router-dom';
 import { CbtSheet } from './stages/sheets/cbt-sheet/cbt-sheet';
 
 
-function Meklab() {
+function OmniUnit() {
     return (
         <HashRouter>
             <Routes>
@@ -18,4 +18,4 @@ function Meklab() {
     )
 }
 
-export default Meklab;
+export default OmniUnit;

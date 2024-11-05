@@ -254,7 +254,7 @@ export class MTFClass {
         return shallow;
     }
 
-    public reader(contents: string): Partial<RetObj> {
+    public reader(contents: string): Mech {
         //const firstPass = contents.split('\n');
         let firstPass = contents.replaceAll('\n', ',').split(',');
         firstPass = firstPass.filter((el) => {
@@ -270,9 +270,9 @@ export class MTFClass {
 
         const retObj = {...deepResult, ...firstResult};
 
-        return retObj;
+        return retObj as unknown as Mech;
     }
-
+ 
     public writer(path: string, blob: Mech): boolean {
         // not ready for development. still focusing on reading and displaying.
         return true;
