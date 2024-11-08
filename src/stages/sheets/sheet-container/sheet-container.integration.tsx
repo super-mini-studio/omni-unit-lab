@@ -2,7 +2,7 @@ import React from "react";
 import { describe, it, expect, vi } from "vitest";
 import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { CbtSheet } from "./cbt-sheet";
+import { SheetContainer } from "./sheet-container";
 import {
   mockFileHandle,
   pickerMock,
@@ -18,7 +18,7 @@ describe("integration: cbt sheet file loading", () => {
   const user = userEvent;
 
   it("should load the sheet page", async () => {
-    render(<CbtSheet />);
+    render(<SheetContainer />);
 
     const fileBtn = await screen.findByRole("button");
     expect(fileBtn).toBeTruthy();
@@ -30,7 +30,7 @@ describe("integration: cbt sheet file loading", () => {
       writable: true,
     });
 
-    render(<CbtSheet />);
+    render(<SheetContainer />);
 
     pickerMock.mockResolvedValue([mockFileHandle]);
 

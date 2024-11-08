@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { FileLoad } from "../fileLoadDialog";
 import { Mech } from "../../../common/mech";
 import { MTFClass } from "../../../file-states/mtfloader/MTFClass";
+import { CbtMechSheet } from "../cbt-sheets/cbt-mech-sheet";
 
-export function CbtSheet() {
+export function SheetContainer() {
   const mtfClass = new MTFClass();
   const [filePathsOut, setFilePathsOut] = useState<File>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -31,7 +32,7 @@ export function CbtSheet() {
     <>
       <section>
         <FileLoad setFilePathsOut={setFilePathsOut} isLoading={setLoading} />
-        {rs && <p>{rs.chassis}</p>}
+        {rs && <CbtMechSheet details={rs} />}
       </section>
     </>
   );
