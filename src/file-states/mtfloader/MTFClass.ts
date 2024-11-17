@@ -1,3 +1,4 @@
+import { InternalsFactory } from "../../common/internals-factory";
 import { Mech } from "../../common/mech";
 
 interface RetObj {
@@ -21,6 +22,7 @@ interface RetObj {
     jump: number | undefined,
     armortype: string,
     armor: [],
+    internals: {},
     arms: string[],
     crits: {
         la: [],
@@ -33,7 +35,9 @@ interface RetObj {
         rl: [],
     }
 }
+
 export class MTFClass {
+    private internalsFactory = new InternalsFactory();
     private colonRegExp = new RegExp(/:/gi);
     private shallowRegExp = new RegExp(/(chassis)|(model)|(mul)|(config)|(techbase)|(era)|(source)|(rules)|(role)|(quirk)|(mass)|^(engine)|(structure)|(myomer)|(heat sinks)|(walk)|(run)|(jump)$/gi);
     private multilineOptions = ['Armor', 'Weapons', 'Left Arm', 'Right Arm', 'Left Torso', 'Right Torso', 'Center Torso', 'Head', 'Left Leg', 'Right Leg'];
@@ -269,6 +273,8 @@ export class MTFClass {
         const deepResult = this.deepPop(mutliChunks);
 
         const retObj = {...deepResult, ...firstResult};
+        const currMass = retObj.mass ? retObj.mass : 0;
+        retObj.internals = this.internalsFactory.internalsReadFromFile(currMass);
 
         return retObj as unknown as Mech;
     }

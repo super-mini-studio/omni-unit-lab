@@ -1,6 +1,6 @@
 import { TechLvl } from "../units/types/MiscRecordTypes";
 import { LocationsEnum, StructureTypeEnum, CBTBipedMechInternal } from "./types/InternalType";
-import { InternalConstantDetails, InternalsTable } from "./types/InternalConstants";
+import { InternalConstantDetails, InternalsTable, SimpleInternals } from "./types/InternalConstants";
 
 export class InternalsFactory{
     internals: CBTBipedMechInternal = {
@@ -27,6 +27,14 @@ export class InternalsFactory{
         LL: 0,
         RL: 0, 
         maxArmor: 0
+    }
+
+    simpleInternals: SimpleInternals = {
+        a: 0,
+        h: 3,
+        t: 0,
+        ct: 0,
+        l: 0
     }
 
     public set setTonnage(tonnage: number) {
@@ -95,5 +103,18 @@ export class InternalsFactory{
         this.internals.LL = [0, this.getStructurePips(mechTonnage, LocationsEnum.LL)];
 
         return this.internals;
+    }
+
+    public internalsReadFromFile(tons: number): SimpleInternals {
+        const found = InternalsTable().get(tons.toString());
+
+        const ints = this.simpleInternals;
+
+        ints.a = found?.RA ? found.RA : 0;
+        ints.t = found?.RT ? found.RT : 0;
+        ints.ct = found?.CT ? found.CT : 0;
+        ints.l = found?.RL ? found.RL : 0;
+
+        return ints;
     }
 }

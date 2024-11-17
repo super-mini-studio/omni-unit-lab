@@ -40,6 +40,14 @@ describe('MTF Class tests', () => {
             expect(actual.crits?.ll.length).toBe(12);
             expect(actual.crits?.rl.length).toBe(12);
             expect(actual.crits?.ra[0]).toBe('Shoulder');
+        });
+
+        it('should populate the internal structure pip numbers correctly', () => {
+            expect(actual.internals.a).toBe(6);
+            expect(actual.internals.h).toBe(3);
+            expect(actual.internals.t).toBe(8);
+            expect(actual.internals.ct).toBe(11);
+            expect(actual.internals.l).toBe(8);
         })
     })
 });

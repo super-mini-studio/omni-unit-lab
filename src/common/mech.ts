@@ -4,6 +4,7 @@ import { CriticalSlots } from "./critical-slots";
 import { EngineFactory } from "./engine-factory";
 import { InternalsFactory } from "./internals-factory";
 import { TonnageWatcher } from "./tonnage-watcher";
+import { SimpleInternals } from "./types/InternalConstants";
 
 export class Mech {
     chassis: string;
@@ -26,6 +27,7 @@ export class Mech {
     jump: number | undefined;
     armortype: string;
     armor: [];
+    internals: SimpleInternals
     arms: string[];
     crits: {
         la: [],

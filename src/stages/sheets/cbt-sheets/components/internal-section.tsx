@@ -17,7 +17,14 @@ export function InternalSection({ location, dots }: InternalSectionProps) {
         return (
           <svg key={i} viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
             <g>
-              <circle cx="5" cy="5" r="4" />
+              <circle
+                cx="5"
+                cy="5"
+                r="4"
+                fill="none"
+                stroke-width="1"
+                stroke="#616161"
+              />
             </g>
           </svg>
         );

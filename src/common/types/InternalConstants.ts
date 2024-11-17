@@ -27,6 +27,14 @@ export type InternalConstantDetails = {
     maxArmor: number;
 }
 
+export type SimpleInternals = {
+    a: number;
+    t: number;
+    h: number;
+    ct: number;
+    l: number;
+}
+
 export const InternalsTable = (): Map<string, InternalConstantDetails> => {
     const inMap = new Map<string, InternalConstantDetails>();
 
