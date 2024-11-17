@@ -13,10 +13,19 @@ describe('MTF Class tests', () => {
             expect(actual.quirk?.length).toBe(2);
         });
 
+        it('should find and read the Firebee walk, run, and jump values', () => {
+            const walkString = actual.walk.toString();
+            const walkNumber = parseInt(walkString);
+            const jumpString = actual.jump.toString();
+            const jumpNumber = parseInt(jumpString);
+            expect(walkNumber).toBe(5);
+            expect(actual.run).toBe(8);
+            expect(jumpNumber).toBe(5)
+        })
+
         it('should have basic details about engine and mass and heat sinks', () => {
             expect(actual.engine).toBe('175 Fusion Engine');
             expect(actual.mass).toBe('35');
-            expect(actual.jump).toBe(0);
         })
 
         it('should find and break down armor amounts', () => {

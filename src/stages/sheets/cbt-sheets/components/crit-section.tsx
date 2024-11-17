@@ -29,7 +29,7 @@ export function CritSection({ title, crits }: CritSectionProps) {
   };
 
   return (
-    <div className="crits-section">
+    <div className={`crits-section`}>
       <h3>{title}</h3>
       <table>
         {crits.map((item, i) => {

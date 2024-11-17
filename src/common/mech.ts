@@ -23,8 +23,8 @@ export class Mech {
     myomer: string;
     'heat sinks': string;
     walk: number;
-    run: number | undefined;
-    jump: number | undefined;
+    run: number;
+    jump: number;
     armortype: string;
     armor: [];
     internals: SimpleInternals

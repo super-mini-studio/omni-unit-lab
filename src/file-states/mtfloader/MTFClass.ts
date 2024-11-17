@@ -18,8 +18,8 @@ interface RetObj {
     myomer: string,
     'heat sinks': string,
     walk: number,
-    run: number | undefined,
-    jump: number | undefined,
+    run: number,
+    jump: number,
     armortype: string,
     armor: [],
     internals: {},
@@ -39,11 +39,15 @@ interface RetObj {
 export class MTFClass {
     private internalsFactory = new InternalsFactory();
     private colonRegExp = new RegExp(/:/gi);
-    private shallowRegExp = new RegExp(/(chassis)|(model)|(mul)|(config)|(techbase)|(era)|(source)|(rules)|(role)|(quirk)|(mass)|^(engine)|(structure)|(myomer)|(heat sinks)|(walk)|(run)|(jump)$/gi);
+    private shallowRegExp = new RegExp(/(chassis)|(model)|(mul)|(config)|(techbase)|(era)|(source)|(rules)|(role)|(quirk)|(mass)|^(engine)|(structure)|(myomer)|(heat sinks)|(walk)|(run)|^(jump)?(?!mp)/gi);
     private multilineOptions = ['Armor', 'Weapons', 'Left Arm', 'Right Arm', 'Left Torso', 'Right Torso', 'Center Torso', 'Head', 'Left Leg', 'Right Leg'];
     private deepRegExp = new RegExp(/(armor)|(weapons)|(left arm)|(right arm)|(left torso)|(right torso)|(center torso)|(head)|(left leg)|(right leg)/gi);
     private critRegExp = new RegExp(/^(left arm)$|^(right arm)$|^(left torso)$|^(right torso)$|^(center torso)$|^(head)$|^(left leg)$|^(right leg)$/gi);
 
+
+    private determineRun = (walk): number => {
+        return Math.round(walk * 1.5);
+    };
 
     private singeLines(line: string): string[] {
         const isColon = String(line.match(this.colonRegExp));
@@ -242,8 +246,12 @@ export class MTFClass {
         dataArray.filter((item) => {
             const found = item[0].match(this.shallowRegExp);
             const foundValue = item[1];
-            const foundKey = found?.toString().toLowerCase() as unknown as keyof RetObj;
-            
+            let foundKey;
+            const isActuallyJumpJet = item[0].match(/^(jump jet)/gi)
+            if(!isActuallyJumpJet) {
+                foundKey = found?.toString().toLowerCase() as unknown as keyof RetObj;
+            }
+
             if(found?.includes('quirk')) {
                 draftQuirks.push(foundValue)
             } else {
@@ -254,6 +262,9 @@ export class MTFClass {
         if(draftQuirks.length > 0) {
             shallow.quirk = draftQuirks;
         }
+
+        shallow.walk = shallow.walk ? shallow.walk : 0;
+        shallow.run = this.determineRun(shallow.walk);
 
         return shallow;
     }
@@ -275,6 +286,7 @@ export class MTFClass {
         const retObj = {...deepResult, ...firstResult};
         const currMass = retObj.mass ? retObj.mass : 0;
         retObj.internals = this.internalsFactory.internalsReadFromFile(currMass);
+        
 
         return retObj as unknown as Mech;
     }

@@ -2,16 +2,13 @@ import React from "react";
 import { Mech } from "../../../common/mech";
 import { CritSection } from "./components/crit-section";
 import { ArmorSection } from "./components/armor-section";
+import { InternalSection } from "./components/internal-section";
 
 type CbtMechSheetProps = {
   details: Mech;
 };
 
 export function CbtMechSheet({ details }: CbtMechSheetProps) {
-  const determineRun = (walk): number => {
-    return Math.round(walk * 1.5);
-  };
-
   const hasJump = details.jump ? true : false;
 
   return (
@@ -31,7 +28,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
               <dt>Walking:</dt>
               <dd>{details.walk}</dd>
               <dt>Running:</dt>
-              <dd>{determineRun(details.walk)}</dd>
+              <dd>{details.run}</dd>
               {hasJump && <dt>Jumping:</dt>}
               {hasJump && <dd>{details.jump}</dd>}
             </dl>
@@ -104,47 +101,69 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
       <div className="armor-diagram">
         <div className="armor-front">
           <div className="armor-row">
-            <div className="armor-hd">
-              <ArmorSection location="HD" dots={details.armor[6][1]} />
-            </div>
+            <ArmorSection
+              className="armor-hd"
+              location="HD"
+              dots={details.armor[6][1]}
+            />
           </div>
           <div className="armor-row">
-            <div className="armor-ra">
-              <ArmorSection location="RA" dots={details.armor[2][1]} />
-            </div>
-            <div className="armor-rt">
-              <ArmorSection location="RT" dots={details.armor[4][1]} />
-            </div>
-            <div className="armor-ct">
-              <ArmorSection location="CT" dots={details.armor[5][1]} />
-            </div>
-            <div className="armor-lt">
-              <ArmorSection location="LT" dots={details.armor[3][1]} />
-            </div>
-            <div className="armor-la">
-              <ArmorSection location="LA" dots={details.armor[1][1]} />
-            </div>
+            <ArmorSection
+              className="armor-ra"
+              location="RA"
+              dots={details.armor[2][1]}
+            />
+            <ArmorSection
+              className="armor-rt"
+              location="RT"
+              dots={details.armor[4][1]}
+            />
+            <ArmorSection
+              className="armor-ct"
+              location="CT"
+              dots={details.armor[5][1]}
+            />
+            <ArmorSection
+              className="armor-lt"
+              location="LT"
+              dots={details.armor[3][1]}
+            />
+            <ArmorSection
+              className="armor-la"
+              location="LA"
+              dots={details.armor[1][1]}
+            />
           </div>
           <div className="armor-row">
-            <div className="armor-rl">
-              <ArmorSection location="RL" dots={details.armor[8][1]} />
-            </div>
-            <div className="armor-ll">
-              <ArmorSection location="LL" dots={details.armor[7][1]} />
-            </div>
+            <ArmorSection
+              className="armor-rl"
+              location="RL"
+              dots={details.armor[8][1]}
+            />
+            <ArmorSection
+              className="armor-ll"
+              location="LL"
+              dots={details.armor[7][1]}
+            />
           </div>
         </div>
         <div className="armor-back">
           <div className="armor-row">
-            <div className="armor-rlt">
-              <ArmorSection location="RTL" dots={details.armor[9][1]} />
-            </div>
-            <div className="armor-rct">
-              <ArmorSection location="RTC" dots={details.armor[11][1]} />
-            </div>
-            <div className="armor-rrt">
-              <ArmorSection location="RTR" dots={details.armor[10][1]} />
-            </div>
+            <ArmorSection
+              className="armor-rlt"
+              location="RTL"
+              dots={details.armor[9][1]}
+            />
+            <ArmorSection
+              className="armor-rct"
+              location="RTC"
+              dots={details.armor[11][1]}
+            />
+            <ArmorSection
+              className="armor-rrt"
+              location="RTR"
+              dots={details.armor[10][1]}
+            />
           </div>
         </div>
       </div>
@@ -158,7 +177,54 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
         <CritSection title="Left Leg" crits={details.crits.ll} />
         <CritSection title="Right Leg" crits={details.crits.rl} />
       </div>
-      <div className="internal-structure-diagram"></div>
+      <div className="internal-structure-diagram">
+        <div className="internal-row">
+          <InternalSection
+            className="internal-hd"
+            location="HD"
+            dots={details.internals.h.toString()}
+          />
+        </div>
+        <div className="internal-row">
+          <InternalSection
+            className="internal-ra"
+            location="RA"
+            dots={details.internals.a.toString()}
+          />
+          <InternalSection
+            className="internal-rt"
+            location="RT"
+            dots={details.internals.t.toString()}
+          />
+          <InternalSection
+            className="internal-ct"
+            location="CT"
+            dots={details.internals.ct.toString()}
+          />
+          <InternalSection
+            className="internal-lt"
+            location="LT"
+            dots={details.internals.t.toString()}
+          />
+          <InternalSection
+            className="internal-la"
+            location="LA"
+            dots={details.internals.a.toString()}
+          />
+        </div>
+        <div className="internal-row">
+          <InternalSection
+            className="internal-rl"
+            location="RL"
+            dots={details.internals.l.toString()}
+          />
+          <InternalSection
+            className="internal-ll"
+            location="LL"
+            dots={details.internals.l.toString()}
+          />
+        </div>
+      </div>
       <div className="heat-chart">
         <h5>Heat Scale</h5>
         <table>
