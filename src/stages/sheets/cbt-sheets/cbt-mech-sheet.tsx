@@ -100,52 +100,47 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
       </div>
       <div className="armor-diagram">
         <div className="armor-front">
-          <div className="armor-row">
-            <ArmorSection
-              className="armor-hd"
-              location="HD"
-              dots={details.armor[6][1]}
-            />
-          </div>
-          <div className="armor-row">
-            <ArmorSection
-              className="armor-ra"
-              location="RA"
-              dots={details.armor[2][1]}
-            />
-            <ArmorSection
-              className="armor-rt"
-              location="RT"
-              dots={details.armor[4][1]}
-            />
-            <ArmorSection
-              className="armor-ct"
-              location="CT"
-              dots={details.armor[5][1]}
-            />
-            <ArmorSection
-              className="armor-lt"
-              location="LT"
-              dots={details.armor[3][1]}
-            />
-            <ArmorSection
-              className="armor-la"
-              location="LA"
-              dots={details.armor[1][1]}
-            />
-          </div>
-          <div className="armor-row">
-            <ArmorSection
-              className="armor-rl"
-              location="RL"
-              dots={details.armor[8][1]}
-            />
-            <ArmorSection
-              className="armor-ll"
-              location="LL"
-              dots={details.armor[7][1]}
-            />
-          </div>
+          <ArmorSection
+            className="armor-hd"
+            location="HD"
+            dots={details.armor[6][1]}
+          />
+          <ArmorSection
+            className="armor-ra"
+            location="RA"
+            dots={details.armor[2][1]}
+          />
+          <ArmorSection
+            className="armor-rt"
+            location="RT"
+            dots={details.armor[4][1]}
+          />
+          <ArmorSection
+            className="armor-ct"
+            location="CT"
+            dots={details.armor[5][1]}
+          />
+          <ArmorSection
+            className="armor-lt"
+            location="LT"
+            dots={details.armor[3][1]}
+          />
+          <ArmorSection
+            className="armor-la"
+            location="LA"
+            dots={details.armor[1][1]}
+          />
+
+          <ArmorSection
+            className="armor-rl"
+            location="RL"
+            dots={details.armor[8][1]}
+          />
+          <ArmorSection
+            className="armor-ll"
+            location="LL"
+            dots={details.armor[7][1]}
+          />
         </div>
         <div className="armor-back">
           <div className="armor-row">
@@ -168,13 +163,171 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
         </div>
       </div>
       <div className="crits-table">
-        <CritSection title="Head" crits={details.crits.hd} />
         <CritSection title="Left Arm" crits={details.crits.la} />
+        <CritSection title="Head" crits={details.crits.hd} />
+        <CritSection title="Right Arm" crits={details.crits.ra} />
         <CritSection title="Left Torso" crits={details.crits.lt} />
         <CritSection title="Center Torso" crits={details.crits.ct} />
         <CritSection title="Right Torso" crits={details.crits.rt} />
-        <CritSection title="Right Arm" crits={details.crits.ra} />
         <CritSection title="Left Leg" crits={details.crits.ll} />
+        <table className="critial-systems">
+          <tr>
+            <td>Engine Hits</td>
+            <td>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td>Gyro Hits</td>
+            <td>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td>Sensor Hits</td>
+            <td>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td>Life Support</td>
+            <td>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+            </td>
+          </tr>
+        </table>
         <CritSection title="Right Leg" crits={details.crits.rl} />
       </div>
       <div className="internal-structure-diagram">
@@ -262,7 +415,691 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
           </tr>
         </table>
       </div>
-      <div className="heat-effects"></div>
+      <div className="heat-effects">
+        <h4>Head Data</h4>
+        <table>
+          <tr>
+            <th>Heat Level</th>
+            <th>Effects</th>
+            <th>{details["heat sinks"]}</th>
+          </tr>
+          <tr>
+            <td>30</td>
+            <td>Shutdown</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>28</td>
+            <td>Ammo Exp, avoid on 8+</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>26</td>
+            <td>Shutdown, avoid on 10+</td>
+            <td>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td>25</td>
+            <td>-5 Movement Points</td>
+            <td>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td>24</td>
+            <td>+4 Modifier to fire</td>
+            <td>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td>23</td>
+            <td>Ammo Exp, avoid on 6+</td>
+            <td>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td>22</td>
+            <td>Shutdown, avoid on 8+</td>
+            <td>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td>20</td>
+            <td>-4 Movement Points</td>
+            <td>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td>19</td>
+            <td>Ammo Exp, avoid on 4+</td>
+            <td>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td>18</td>
+            <td>Shutdown, avoid on 6+</td>
+            <td>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td>17</td>
+            <td>+3 Modifier to Fire</td>
+            <td>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td>-3 Movement Points</td>
+            <td>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>Shutdown, avoid on 4+</td>
+            <td>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>+2 Modifier to Fire</td>
+            <td>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="5"
+                    cy="5"
+                    r="4"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke="black"
+                  />
+                </g>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>-2 Movement Points</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>+1 Modifier to Fire</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>-1 Movement Points</td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
     </div>
   );
 }
