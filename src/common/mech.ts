@@ -28,7 +28,7 @@ export class Mech {
     armortype: string;
     armor: [];
     internals: SimpleInternals
-    arms: string[];
+    arms: string[][];
     crits: {
         la: [],
         ra: [],

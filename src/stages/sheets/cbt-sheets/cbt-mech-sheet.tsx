@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Mech } from "../../../common/mech";
 import { CritSection } from "./components/crit-section";
 import { ArmorSection } from "./components/armor-section";
 import { InternalSection } from "./components/internal-section";
+import { countTuples, TupleCount } from "../equipmentUtils";
 
 type CbtMechSheetProps = {
   details: Mech;
@@ -10,6 +11,17 @@ type CbtMechSheetProps = {
 
 export function CbtMechSheet({ details }: CbtMechSheetProps) {
   const hasJump = details.jump ? true : false;
+  const [armsDetails, setArmsDetails] = useState<TupleCount[]>([]);
+  let parsedArms: TupleCount[];
+  if(armsDetails.length ===0 && details.arms){
+  {
+    parsedArms = countTuples(details.arms);
+  }
+
+  useEffect(() => {
+    setArmsDetails(parsedArms);
+  }, [details.arms]);
+
   return (
     <div className="cbt-sheet">
       <div className="static-title">
@@ -55,12 +67,12 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
               <th>Med</th>
               <th>Lng</th>
             </tr>
-            {details.arms &&
-              details.arms.map((r, i) => (
+            {armsDetails.length > 0 &&
+              armsDetails.map((r, i) => (
                 <tr key={i}>
-                  <td>1</td>
-                  <td>{r[0]}</td>
-                  <td>{r[1]}</td>
+                  <td>{r.count}</td>
+                  <td>{r.values[0]}</td>
+                  <td>{r.values[1]}</td>
                 </tr>
               ))}
           </table>
