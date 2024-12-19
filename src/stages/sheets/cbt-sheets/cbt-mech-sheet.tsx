@@ -3,7 +3,12 @@ import { Mech } from "../../../common/mech";
 import { CritSection } from "./components/crit-section";
 import { ArmorSection } from "./components/armor-section";
 import { InternalSection } from "./components/internal-section";
-import { countTuples, TupleCount } from "../equipmentUtils";
+import {
+  countTuples,
+  TupleCount,
+  getEquipmentDetails,
+  EquipmentDetails,
+} from "../equipmentUtils";
 
 type CbtMechSheetProps = {
   details: Mech;
@@ -12,11 +17,37 @@ type CbtMechSheetProps = {
 export function CbtMechSheet({ details }: CbtMechSheetProps) {
   const hasJump = details.jump ? true : false;
   const [armsDetails, setArmsDetails] = useState<TupleCount[]>([]);
+
   let parsedArms: TupleCount[];
-  if(armsDetails.length ===0 && details.arms){
-  {
+
+  const getRanges = (name: string): EquipmentDetails => {
+    const equipment = name;
+    return getEquipmentDetails(equipment);
+  };
+
+  if (armsDetails.length === 0 && details.arms) {
+    if (details.arms[0][0] === "Weapons") {
+      details.arms.shift();
+    }
     parsedArms = countTuples(details.arms);
   }
+
+  const weaponsAndEquipment = (armsTuple: TupleCount) => {
+    const found = getRanges(armsTuple.values[0]);
+    return (
+      <>
+        <td>{armsTuple.count}</td>
+        <td>{armsTuple.values[0]}</td>
+        <td>{armsTuple.values[1]}</td>
+        <td>{found.heat}</td>
+        <td>{found.damage}</td>
+        <td>{found.ranges[0]}</td>
+        <td>{found.ranges[1]}</td>
+        <td>{found.ranges[2]}</td>
+        <td>{found.ranges[3]}</td>
+      </>
+    );
+  };
 
   useEffect(() => {
     setArmsDetails(parsedArms);
@@ -67,14 +98,9 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
               <th>Med</th>
               <th>Lng</th>
             </tr>
-            {armsDetails.length > 0 &&
-              armsDetails.map((r, i) => (
-                <tr key={i}>
-                  <td>{r.count}</td>
-                  <td>{r.values[0]}</td>
-                  <td>{r.values[1]}</td>
-                </tr>
-              ))}
+            {armsDetails.map((r, i) => (
+              <tr key={i}>{weaponsAndEquipment(r)}</tr>
+            ))}
           </table>
         </div>
         <div className="bv">
