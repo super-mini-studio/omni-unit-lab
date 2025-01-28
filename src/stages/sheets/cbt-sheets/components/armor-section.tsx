@@ -26,7 +26,7 @@ export function ArmorSection({ className, location, dots }: ArmorSectionProps) {
               cy="5"
               r="4"
               fill="none"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               stroke="black"
             />
           </g>

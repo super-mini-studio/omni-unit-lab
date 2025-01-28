@@ -33,7 +33,7 @@ export function InternalSection({
                 cy="5"
                 r="4"
                 fill="none"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="#a1a1a1"
               />
             </g>

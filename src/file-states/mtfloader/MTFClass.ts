@@ -1,49 +1,18 @@
 import { InternalsFactory } from "../../common/internals-factory";
+import { Mech, QuadCrits, QuadMech } from "../../common/mech";
+import { RetObj, QuadRetObj, BipedRetObj } from "./RetObjInterfaces";
 import { Mech } from "../../common/mech";
-
-interface RetObj {
-    chassis: string,
-    model: string,
-    mul: number,
-    config: string,
-    techbase: string,
-    era: string,
-    source: string,
-    rules: string,
-    role: string
-    quirk: string[],
-    mass: number,
-    engine: string,
-    structure: string,
-    myomer: string,
-    'heat sinks': string,
-    walk: number,
-    run: number,
-    jump: number,
-    armortype: string,
-    armor: [],
-    internals: {},
-    arms: string[],
-    crits: {
-        la: [],
-        ra: [],
-        lt: [],
-        rt: [],
-        ct: [],
-        hd: [],
-        ll: [],
-        rl: [],
-    }
-}
 
 export class MTFClass {
     private internalsFactory = new InternalsFactory();
     private colonRegExp = new RegExp(/:/gi);
     private shallowRegExp = new RegExp(/(chassis)|(model)|(mul)|(config)|(techbase)|(era)|(source)|(rules)|(role)|(quirk)|(mass)|^(engine)|(structure)|(myomer)|(heat sinks)|(walk)|(run)|^(jump)?(?!mp)/gi);
     private multilineOptions = ['Armor', 'Weapons', 'Left Arm', 'Right Arm', 'Left Torso', 'Right Torso', 'Center Torso', 'Head', 'Left Leg', 'Right Leg'];
-    private deepRegExp = new RegExp(/(armor)|(weapons)|(left arm)|(right arm)|(left torso)|(right torso)|(center torso)|(head)|(left leg)|(right leg)/gi);
+    private deepRegExp = new RegExp(/(armor)|(weapons)|^(left arm)$|^(right arm)$|(left torso)|(right torso)|(center torso)|(head)|^(left leg)$|^(right leg)$/gi);
     private critRegExp = new RegExp(/^(left arm)$|^(right arm)$|^(left torso)$|^(right torso)$|^(center torso)$|^(head)$|^(left leg)$|^(right leg)$/gi);
-
+    private multilineOptionsQuad = ['Armor', 'Weapons', 'Left Torso', 'Right Torso', 'Center Torso', 'Head', 'Front Left Leg', 'Front Right Leg', 'Rear Left Leg', 'Rear Right Leg'];
+    private deepRegExpQuad = new RegExp(/(armor)|(weapons)|(left torso)|(right torso)|(center torso)|(head)|^(front left leg)$|^(front right leg)$|^(rear left leg)$|^(rear right leg)$/gi);
+    private critRegExpQuad = new RegExp(/^(left torso)$|^(right torso)$|^(center torso)$|^(head)$|^(front left leg)$|^(front right leg)$|^(rear left leg)$|^(rear right leg)$/gi);
 
     private determineRun = (walk): number => {
         return Math.round(walk * 1.5);
@@ -65,13 +34,15 @@ export class MTFClass {
         return keyvalTuple;
     }
 
-    private multiLines(items: string[][]): (string | string[][])[][] {
+    private multiLines(items: string[][], isQuad: boolean): (string | string[][])[][] {
         const collectedMultis: (string | string[][])[][] = [];
         let startFrom = 0;
         let isCrit = -2;
         this.multilineOptions.filter((opt, i) => {
-            if (isCrit == -2) {
+            if (isCrit == -2 && !isQuad) {
                 isCrit = opt.search(this.critRegExp);
+            } else if (isCrit == -2 && isQuad) {
+                isCrit = opt.search(this.critRegExpQuad)
             }
             const start = items.findIndex((item) => {
                 return item[0] === opt;
@@ -88,8 +59,9 @@ export class MTFClass {
             } else if(isCrit == 0) {
                 end = startFrom + 13;
             } else {
+                const multiOptions = isQuad ? this.multilineOptionsQuad : this.multilineOptions
                 end = items.findIndex((item) => {
-                    return item[0] === this.multilineOptions[i+1];
+                    return item[0] === multiOptions[i+1];
                 });
             }
             
@@ -134,8 +106,23 @@ export class MTFClass {
         return untupled;
     }
 
-    private deepPop(dataArray: (string | string[][])[][]): Partial<RetObj> {
-        const deep: Partial<RetObj> = {
+    private deepPop(dataArray: (string | string[][])[][], isQuad: boolean = false): Partial<BipedRetObj | QuadRetObj> {
+        const deepQuad: Partial<QuadRetObj> = {
+            armortype: "",
+            armor: [],
+            arms: [],
+            crits: {
+                lt: [],
+                rt: [],
+                ct: [],
+                hd: [],
+                fll: [],
+                frl: [],
+                rll: [],
+                rrl: []
+            }
+        }
+        const deepBiped: Partial<BipedRetObj> = {
             armortype: "",
             armor: [],
             arms: [],
@@ -147,11 +134,12 @@ export class MTFClass {
                 ct: [],
                 hd: [],
                 ll: [],
-                rl: []
+                rl: [],
             }
         };
+        const deep = isQuad ? deepBiped : deepQuad;
         let armsArray: string[] = [];
-        let critsArray: string[] = []
+        let critsArray: string[] = [];
         
         dataArray.filter((item) => {
             console.log(item)
@@ -176,29 +164,48 @@ export class MTFClass {
             if(critsArray.length > 0) {
                 critsArray.filter((val) => {
                     const loc = val[0];
-                    if(loc === 'Left Arm'){
-                        deep.crits.la = this.unTuple(critsArray) as never;
-                    }
-                    if(val[0] === 'Right Arm'){
-                        deep.crits.ra = this.unTuple(critsArray) as never;
-                    }
-                    if(val[0] === 'Right Torso'){
-                        deep.crits.rt = this.unTuple(critsArray) as never;
-                    }
-                    if(val[0] === 'Left Torso'){
-                        deep.crits.lt = this.unTuple(critsArray) as never;
-                    }
-                    if(val[0] === 'Center Torso'){
-                        deep.crits.ct = this.unTuple(critsArray) as never;
-                    }
-                    if(val[0] === 'Head'){
-                        deep.crits.hd = this.unTuple(critsArray) as never;
-                    }
-                    if(val[0] === 'Right Leg'){
-                        deep.crits.rl = this.unTuple(critsArray) as never;
-                    }
-                    if(val[0] === 'Left Leg'){
-                        deep.crits.ll = this.unTuple(critsArray) as never;
+                    if(deep.crits) {
+                        if(val[0] === 'Right Torso'){
+                            deep.crits.rt = this.unTuple(critsArray) as never;
+                        }
+                        if(val[0] === 'Left Torso'){
+                            deep.crits.lt = this.unTuple(critsArray) as never;
+                        }
+                        if(val[0] === 'Center Torso'){
+                            deep.crits.ct = this.unTuple(critsArray) as never;
+                        }
+                        if(val[0] === 'Head'){
+                            deep.crits.hd = this.unTuple(critsArray) as never;
+                        }
+    
+                        if(!isQuad) {
+                            if(loc === 'Left Arm'){
+                                deep.crits.la = this.unTuple(critsArray) as never;
+                            }
+                            if(val[0] === 'Right Arm'){
+                                deep.crits.ra = this.unTuple(critsArray) as never;
+                            }
+                            if(val[0] === 'Right Leg'){
+                                deep.crits.rl = this.unTuple(critsArray) as never;
+                            }
+                            if(val[0] === 'Left Leg'){
+                                deep.crits.ll = this.unTuple(critsArray) as never;
+                            }
+                        }
+                        if(isQuad) {
+                            if(val[0] === 'Front Left Leg'){
+                                deep.crits.fll = this.unTuple(critsArray) as never;
+                            }
+                            if(val[0] === 'Front Right Leg'){
+                                deep.crits.frl = this.unTuple(critsArray) as never;
+                            }
+                            if(val[0] === 'Rear Left Leg'){
+                                deep.crits.rll = this.unTuple(critsArray) as never;
+                            }
+                            if(val[0] === 'Rear Right Leg'){
+                                deep.crits.rrl = this.unTuple(critsArray) as never;
+                            }
+                        }
                     }
                 });
             }
@@ -208,15 +215,24 @@ export class MTFClass {
             deep.arms = armsArray;
         }
 
-        deep.crits?.la.shift();
-        deep.crits?.ra.shift();
         deep.crits?.lt.shift();
         deep.crits?.rt.shift();
         deep.crits?.ct.shift();
         deep.crits?.hd.shift();
-        deep.crits?.ll.shift();
-        deep.crits?.rl.shift();
 
+        if(!isQuad) {
+            deep.crits?.la.shift();
+            deep.crits?.ra.shift();
+            deep.crits?.ll.shift();
+            deep.crits?.rl.shift();
+        }
+        if(isQuad) {
+            deep.crits?.rll.shift();
+            deep.crits?.frl.shift();
+            deep.crits?.fll.shift();
+            deep.crits?.frl.shift();
+        }
+        
         return deep
     }
 
@@ -269,7 +285,7 @@ export class MTFClass {
         return shallow;
     }
 
-    public reader(contents: string): Mech {
+    public reader(contents: string): Mech | QuadMech {
         //const firstPass = contents.split('\n');
         let firstPass = contents.replaceAll('\n', ',').split(',');
         firstPass = firstPass.filter((el) => {
@@ -280,13 +296,19 @@ export class MTFClass {
         });
 
         const firstResult = this.shallowPop(secondPass);
-        const mutliChunks = this.multiLines(secondPass);
-        const deepResult = this.deepPop(mutliChunks);
+        const isQuad = firstResult.config === 'Quad' ? true : false;
+
+        const mutliChunks = this.multiLines(secondPass, isQuad);
+        //this seems to be where the thing can't read. (ln 57)
+        const deepResult = this.deepPop(mutliChunks, isQuad);
 
         const retObj = {...deepResult, ...firstResult};
         const currMass = retObj.mass ? retObj.mass : 0;
         retObj.internals = this.internalsFactory.internalsReadFromFile(currMass);
         
+        if (isQuad) {
+            return retObj as unknown as QuadMech;
+        };
 
         return retObj as unknown as Mech;
     }

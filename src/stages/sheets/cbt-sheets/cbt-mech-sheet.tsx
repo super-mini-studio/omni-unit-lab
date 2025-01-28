@@ -17,6 +17,7 @@ type CbtMechSheetProps = {
 export function CbtMechSheet({ details }: CbtMechSheetProps) {
   const hasJump = details.jump ? true : false;
   const [armsDetails, setArmsDetails] = useState<TupleCount[]>([]);
+  const [isQuad, setIsQuad] = useState<boolean>(false);
 
   let parsedArms: TupleCount[];
 
@@ -51,6 +52,9 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
 
   useEffect(() => {
     setArmsDetails(parsedArms);
+    if(details.config.toLocaleLowerCase() === 'quad') {
+      setIsQuad(true);
+    }
   }, [details.arms]);
 
   return (
@@ -136,48 +140,94 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
         </table>
       </div>
       <div className="armor-diagram">
-        <div className="armor-front">
-          <ArmorSection
-            className="armor-hd"
-            location="HD"
-            dots={details.armor[6][1]}
-          />
-          <ArmorSection
-            className="armor-ra"
-            location="RA"
-            dots={details.armor[2][1]}
-          />
-          <ArmorSection
-            className="armor-rt"
-            location="RT"
-            dots={details.armor[4][1]}
-          />
-          <ArmorSection
-            className="armor-ct"
-            location="CT"
-            dots={details.armor[5][1]}
-          />
-          <ArmorSection
-            className="armor-lt"
-            location="LT"
-            dots={details.armor[3][1]}
-          />
-          <ArmorSection
-            className="armor-la"
-            location="LA"
-            dots={details.armor[1][1]}
-          />
-          <ArmorSection
-            className="armor-rl"
-            location="RL"
-            dots={details.armor[8][1]}
-          />
-          <ArmorSection
-            className="armor-ll"
-            location="LL"
-            dots={details.armor[7][1]}
-          />
-        </div>
+        {!isQuad && 
+          <div className="armor-front">
+            <ArmorSection
+              className="armor-hd"
+              location="HD"
+              dots={details.armor[6][1]}
+            />
+            <ArmorSection
+              className="armor-ra"
+              location="RA"
+              dots={details.armor[2][1]}
+            />
+            <ArmorSection
+              className="armor-rt"
+              location="RT"
+              dots={details.armor[4][1]}
+            />
+            <ArmorSection
+              className="armor-ct"
+              location="CT"
+              dots={details.armor[5][1]}
+            />
+            <ArmorSection
+              className="armor-lt"
+              location="LT"
+              dots={details.armor[3][1]}
+            />
+            <ArmorSection
+              className="armor-la"
+              location="LA"
+              dots={details.armor[1][1]}
+            />
+            <ArmorSection
+              className="armor-rl"
+              location="RL"
+              dots={details.armor[8][1]}
+            />
+            <ArmorSection
+              className="armor-ll"
+              location="LL"
+              dots={details.armor[7][1]}
+            />
+          </div>
+        }
+        {isQuad && 
+          <div className="armor-front">
+            <ArmorSection
+              className="armor-hd"
+              location="HD"
+              dots={details.armor[6][1]}
+            />
+            <ArmorSection
+              className="armor-rt"
+              location="RT"
+              dots={details.armor[4][1]}
+            />
+            <ArmorSection
+              className="armor-ct"
+              location="CT"
+              dots={details.armor[5][1]}
+            />
+            <ArmorSection
+              className="armor-lt"
+              location="LT"
+              dots={details.armor[3][1]}
+            />
+            <ArmorSection
+              className="armor-frl"
+              location="FRL"
+              dots={details.armor[2][1]}
+            />
+            <ArmorSection
+              className="armor-rrl"
+              location="RRL"
+              dots={details.armor[8][1]}
+            />
+            <ArmorSection
+              className="armor-rll"
+              location="RLL"
+              dots={details.armor[7][1]}
+            />
+            <ArmorSection
+              className="armor-fll"
+              location="FLL"
+              dots={details.armor[1][1]}
+            />
+          </div>
+        }
         <div className="armor-back">
           <ArmorSection
             className="armor-rlt"
@@ -197,13 +247,27 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
         </div>
       </div>
       <div className="crits-table">
-        <CritSection title="Left Arm" crits={details.crits.la} />
-        <CritSection title="Head" crits={details.crits.hd} />
-        <CritSection title="Right Arm" crits={details.crits.ra} />
-        <CritSection title="Left Torso" crits={details.crits.lt} />
-        <CritSection title="Center Torso" crits={details.crits.ct} />
-        <CritSection title="Right Torso" crits={details.crits.rt} />
-        <CritSection title="Left Leg" crits={details.crits.ll} />
+        {!isQuad && <>
+          <CritSection title="Left Arm" crits={details.crits.la} />
+          <CritSection title="Head" crits={details.crits.hd} />
+          <CritSection title="Right Arm" crits={details.crits.ra} />
+          <CritSection title="Left Torso" crits={details.crits.lt} />
+          <CritSection title="Center Torso" crits={details.crits.ct} />
+          <CritSection title="Right Torso" crits={details.crits.rt} />
+          <CritSection title="Left Leg" crits={details.crits.ll} />
+          <CritSection title="Left Leg" crits={details.crits.rl} />
+        </>}
+        {isQuad && <>
+          <CritSection title="Front Left Leg" crits={details.crits.la} />
+          <CritSection title="Head" crits={details.crits.hd} />
+          <CritSection title="Front Right Leg" crits={details.crits.ra} />
+          <CritSection title="Left Torso" crits={details.crits.lt} />
+          <CritSection title="Center Torso" crits={details.crits.ct} />
+          <CritSection title="Right Torso" crits={details.crits.rt} />
+          <CritSection title="Rear Left Leg" crits={details.crits.ll} />
+          <CritSection title="Rear Right Leg" crits={details.crits.rl} />
+        </>}
+        
         <table className="critical-systems">
           <tr>
             <td>Engine Hits</td>
@@ -220,7 +284,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                     cy="5"
                     r="4"
                     fill="none"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="black"
                   />
                 </g>
@@ -237,7 +301,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                     cy="5"
                     r="4"
                     fill="none"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="black"
                   />
                 </g>
@@ -254,7 +318,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                     cy="5"
                     r="4"
                     fill="none"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="black"
                   />
                 </g>
@@ -276,7 +340,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                     cy="5"
                     r="4"
                     fill="none"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="black"
                   />
                 </g>
@@ -293,7 +357,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                     cy="5"
                     r="4"
                     fill="none"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="black"
                   />
                 </g>
@@ -315,7 +379,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                     cy="5"
                     r="4"
                     fill="none"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="black"
                   />
                 </g>
@@ -332,7 +396,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                     cy="5"
                     r="4"
                     fill="none"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="black"
                   />
                 </g>
@@ -354,7 +418,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                     cy="5"
                     r="4"
                     fill="none"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="black"
                   />
                 </g>
@@ -447,7 +511,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -464,7 +528,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -481,7 +545,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -504,7 +568,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -521,7 +585,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -538,7 +602,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -561,7 +625,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -578,7 +642,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -595,7 +659,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -618,7 +682,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -635,7 +699,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -652,7 +716,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -675,7 +739,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -692,7 +756,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -709,7 +773,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -732,7 +796,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -749,7 +813,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -766,7 +830,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -789,7 +853,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -806,7 +870,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -823,7 +887,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -846,7 +910,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -863,7 +927,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -880,7 +944,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -903,7 +967,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -920,7 +984,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -937,7 +1001,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -960,7 +1024,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -977,7 +1041,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -994,7 +1058,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -1017,7 +1081,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -1034,7 +1098,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -1057,7 +1121,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
@@ -1074,7 +1138,7 @@ export function CbtMechSheet({ details }: CbtMechSheetProps) {
                       cy="5"
                       r="4"
                       fill="none"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="black"
                     />
                   </g>
